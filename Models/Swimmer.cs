@@ -19,7 +19,7 @@ namespace SmithSwimmingSchool.Models
         [Display(Name = "Birth Date")]
         public string? DateOfBirth { get; set; }
 
-        // Navigation properties
+        // Navigation properties need to be added
 
     }
 }
