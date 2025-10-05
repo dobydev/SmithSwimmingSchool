@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
 
 @{
-    ViewData["Title"] = "All Users | Smith Swimming School";
+    ViewData["Title"] = "All Users & Roles | Smith Swimming School";
     var userRoles = ViewBag.UserRoles as Dictionary<string, List<string>> ?? new();
 }
 
@@ -11,7 +11,7 @@
 }
 else
 {
-    <h3 class="mb-3">All Users</h3>
+    <h3 class="mb-3">All Users & Assigned Roles</h3>
     <table class="table table-bordered align-middle">
         <thead class="table-light">
             <tr class="text-center">
@@ -23,6 +23,7 @@ else
         <tbody>
             @foreach (var user in Model)
             {
+                // Get roles for the user, if any
                 var roles = (userRoles.ContainsKey(user.Id) ? userRoles[user.Id] : new List<string>());
                 var hasRole = roles.Any();
                 <tr>
@@ -38,9 +39,6 @@ else
                         {
                             <a asp-controller="Role" asp-action="AddUserRole" asp-route-id="@user.Id"
                                class="btn btn-outline-secondary btn-sm">Change Role</a>
-                            @* If you prefer to block changes entirely, use a disabled button instead:
-                        <button class="btn btn-outline-secondary btn-sm" disabled title="User already has a role">Add Role</button>
-                        *@
                         }
                     </td>
                 </tr>

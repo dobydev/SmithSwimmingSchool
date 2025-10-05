@@ -7,9 +7,9 @@ using SmithSwimmingSchool.ViewModels;
 
 namespace SmithSwimmingSchool.Controllers
 {
-    // Uncomment this when you want to restrict access to Admins only
-    // Ensure you assign your account as an admin
-    // [Authorize(Roles = "Admin")]
+    /* Uncomment this when you want to restrict access to Admins only
+       Ensure you assign your account as an admin BEFORE implementing this
+      [Authorize(Roles = "Admin")] */
     public class RoleController : Controller
     {
         // Properties

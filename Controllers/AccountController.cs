@@ -141,8 +141,12 @@ namespace SmithSwimmingSchool.Controllers
             return View(vm);
         }
 
-        // Action method for displaying all users and their roles
 
+
+        /* Uncomment this when you want to restrict access to Admins only
+          Ensure you assign your account as an admin BEFORE implementing this
+         [Authorize(Roles = "Admin")] */
+        // Action method for displaying all users and their roles
         public IActionResult AllUser()
 
         {
