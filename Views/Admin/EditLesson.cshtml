@@ -1,0 +1,49 @@
+﻿@model SmithSwimmingSchool.Models.Lesson
+
+@{
+    ViewData["Title"] = "Edit Lesson";
+}
+
+<h3>Edit the Lesson</h3>
+
+<form asp-controller="Admin" asp-action="EditLesson" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="LessonId" />
+
+    <div class="mb-3">
+        <label asp-for="SkillLevel" class="form-label"></label>
+        <select asp-for="SkillLevel" class="form-select">
+            <option value="">-- Select Skill Level --</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+        </select>
+        <span asp-validation-for="SkillLevel" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Tuition" class="form-label"></label>
+        <input asp-for="Tuition" class="form-control" />
+        <span asp-validation-for="Tuition" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CoachId" class="form-label"></label>
+        <select asp-for="CoachId" asp-items="@(ViewBag.CoachList as SelectList)" class="form-select">
+            <option value="">-- Select Coach --</option>
+        </select>
+        <span asp-validation-for="CoachId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SwimmerId" class="form-label"></label>
+        <select asp-for="SwimmerId" asp-items="@(ViewBag.SwimmerList as SelectList)" class="form-select">
+            <option value="">-- Select Swimmer --</option>
+        </select>
+        <span asp-validation-for="SwimmerId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Lesson</button>
+    <a asp-controller="Admin" asp-action="AllLessons" class="btn btn-secondary ms-2">Cancel</a>
+</form>

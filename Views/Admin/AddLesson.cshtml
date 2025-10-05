@@ -1,0 +1,52 @@
+﻿@model SmithSwimmingSchool.Models.Lesson
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Add Lesson | Smith Swimming School";
+}
+
+<div class="d-flex justify-content-center">
+    <h2>Add a New Lesson</h2>
+</div>
+
+
+<form asp-controller="Admin" asp-action="AddLesson" method="post" class="mt-3">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="SkillLevel" class="form-label"></label>
+        <select asp-for="SkillLevel" class="form-select">
+            <option value="">-- Select Skill Level --</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+        </select>
+        <span asp-validation-for="SkillLevel" class="text-danger"></span>
+    </div>
+
+
+    <div class="mb-3">
+        <label asp-for="Tuition" class="form-label"></label>
+        <input asp-for="Tuition" class="form-control"/>
+        <span asp-validation-for="Tuition" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CoachId" class="form-label"></label>
+        <select asp-for="CoachId" asp-items="@(ViewBag.CoachList as SelectList)" class="form-select">
+            <option value="">-- Select Coach --</option>
+        </select>
+        <span asp-validation-for="CoachId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SwimmerId" class="form-label"></label>
+        <select asp-for="SwimmerId" asp-items="@(ViewBag.SwimmerList as SelectList)" class="form-select">
+            <option value="">-- Select Swimmer --</option>
+        </select>
+        <span asp-validation-for="SwimmerId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Add Lesson</button>
+    <a asp-action="AddLessons" class="btn btn-outline-secondary ms-2">Cancel</a>
+</form>

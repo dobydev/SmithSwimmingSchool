@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Administration | Smith Swimming School";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h2 class="mb-3">Administration</h2>
+                    <hr class="w-50 mx-auto mb-4" />
+
+                    <p class="text-muted mb-4">
+                        Manage roles, users, and lessons below.
+                    </p>
+
+                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                        <a asp-controller="Role" asp-action="AllRole" class="btn btn-outline-primary">
+                            Display All Roles
+                        </a>
+                        <a asp-controller="Role" asp-action="AddRole" class="btn btn-outline-primary">
+                            Add a Role
+                        </a>
+                        <a asp-controller="Account" asp-action="AllUser" class="btn btn-outline-primary">
+                            Assign Users to Roles
+                        </a>
+                        <a asp-controller="Admin" asp-action="AllLessons" class="btn btn-outline-primary">
+                            Display All Lessons
+                        </a>
+                        <a asp-controller="Admin" asp-action="AddLesson" class="btn btn-outline-primary">
+                            Add a Lesson
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

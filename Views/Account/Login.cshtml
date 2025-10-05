@@ -1,0 +1,32 @@
+﻿@model SmithSwimmingSchool.ViewModels.AccountLoginViewModel
+@{
+    ViewData["Title"] = "Login | Smith Swimming School";
+}
+<!-- Login Form with Bootstrap and placeholder content -->
+<div class="container mt-3 mb-5 border border-dark-subtle shadow-sm p-4 rounded" style="max-width: 500px;">
+    <h2 class="mb-2 text-center fw-bold">User Login</h2>
+    <hr class="w-50 mx-auto mb-4" />
+    <p class="text-center text-muted">
+        Welcome back! Please enter your email and password to access your account
+        and continue your swimming journey with us.
+    </p>
+    <form asp-action="Login" method="post" class="needs-validation mt-3" novalidate>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" placeholder="Enter Email Address" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" class="form-control" placeholder="Enter Password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+        </div>
+    </form>
+    <div class="text-center mt-4">
+        <small class="text-muted">
+            New user? <a href="/Account/Register" class="text-decoration-none">Register here</a>.
+        </small>
+    </div>

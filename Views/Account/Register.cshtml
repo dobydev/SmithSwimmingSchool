@@ -1,0 +1,59 @@
+﻿@model SmithSwimmingSchool.ViewModels.AccountRegisterViewModel
+
+@{
+    ViewData["Title"] = "Register | Smith Swimming School";
+}
+
+
+<!-- Registration Form with Bootstrap and placeholder content -->
+<div class="container mt-3 mb-5 border border-dark-subtle shadow-sm p-4 rounded" style="max-width: 500px;">
+    <h2 class="mb-2 mt-1 text-center fw-bold">User Registration</h2>
+    <hr class="w-50 mx-auto mb-4" />
+    <p class="text-center text-muted">
+        Join our swimming community today! Complete the quick form below to create your account
+        and start your journey toward mastering the water with our expert coaches.
+    </p>
+
+    <form asp-action="Register" method="post" class="needs-validation mt-3" novalidate>
+
+        <div class="mb-3">
+            <label asp-for="FirstName" class="form-label"></label>
+            <input asp-for="FirstName" class="form-control" placeholder="Enter First Name" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LastName" class="form-label"></label>
+            <input asp-for="LastName" class="form-control" placeholder="Enter Last Name" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" placeholder="Enter Email Address" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" class="form-control" placeholder="Create a password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ConfirmPassword" class="form-label"></label>
+            <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm your password" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+        </div>
+    </form>
+
+    <div class="text-center mt-4">
+        <small class="text-muted">
+            Already registered? <a href="/Account/Login" class="text-decoration-none">Login here</a>.
+        </small>
+    </div>
+</div>

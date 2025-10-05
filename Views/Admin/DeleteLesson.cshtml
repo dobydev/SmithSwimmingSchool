@@ -1,0 +1,42 @@
+﻿@model SmithSwimmingSchool.Models.Lesson
+
+@{
+    ViewData["Title"] = "Delete Lesson";
+    var hasSessions = Model.Sessions != null && Model.Sessions.Any();
+}
+
+@if (hasSessions)
+{
+    <div class="alert alert-warning">
+        This lesson cannot be deleted because it has @Model.Sessions.Count scheduled session(s).
+    </div>
+    <p>
+        <a asp-controller="Admin" asp-action="AllLessons" class="btn btn-secondary">Back</a>
+    </p>
+}
+else
+{
+    <h3>Delete Lesson</h3>
+    <p>Are you sure you want to delete this lesson?</p>
+
+    <dl class="row">
+        <dt class="col-sm-3">Skill Level</dt>
+        <dd class="col-sm-9">@Model.SkillLevel</dd>
+
+        <dt class="col-sm-3">Tuition</dt>
+        <dd class="col-sm-9">@string.Format("{0:C}", Model.Tuition)</dd>
+
+        <dt class="col-sm-3">Coach</dt>
+        <dd class="col-sm-9">@Model.Coach?.CoachName</dd>
+
+        <dt class="col-sm-3">Swimmer</dt>
+        <dd class="col-sm-9">@Model.Swimmer?.SwimmerName</dd>
+    </dl>
+
+    <form asp-controller="Admin" asp-action="DeleteLesson" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="LessonId" />
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a asp-controller="Admin" asp-action="AllLessons" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+}

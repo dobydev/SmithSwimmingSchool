@@ -1,0 +1,42 @@
+﻿@model SmithSwimmingSchool.ViewModels.RoleAddUserRoleViewModel
+
+@{
+    ViewData["Title"] = "Assign Role | Smith Swimming School";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="text-center mb-3">Assign Role</h3>
+                    <p class="text-center text-muted mb-4">
+                        Pick a role for <strong>@Model.User.UserName</strong>.
+                    </p>
+
+                    <form asp-controller="Role" asp-action="AddUserRole" method="post">
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                        <input asp-for="@Model.User.Id" type="hidden" />
+
+                        <div class="mb-3">
+                            <label asp-for="Role" class="form-label">Select Role</label>
+                            <select asp-for="Role" asp-items="@Model.RoleList" class="form-select">
+                                <option value="">-- Select a role --</option>
+                            </select>
+                            <span asp-validation-for="Role" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Add Role</button>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a asp-controller="Account" asp-action="AllUser" class="link-secondary">
+                            Back to User List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

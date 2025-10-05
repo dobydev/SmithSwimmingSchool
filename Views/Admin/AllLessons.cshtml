@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SmithSwimmingSchool.Models.Lesson>
+@{
+    ViewData["Title"] = "All Lessons";
+}
+
+<div class="d-flex justify-content-center">
+    <h2>All Lessons</h2>
+</div>
+
+<p>
+    <a class="btn btn-primary" asp-controller="Admin" asp-action="AddLesson">Add a Lesson</a>
+</p>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Skill Level</th>
+            <th>Tuition</th>
+            <th>Coach</th>
+            <th>Swimmer</th>
+            <th class="text-center" style="width:140px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var lesson in Model)
+        {
+            <tr>
+                <td>@lesson.SkillLevel</td>
+                <td>@string.Format("{0:C}", lesson.Tuition)</td>
+                <td>@(lesson.Coach?.CoachName ?? "—")</td>
+                <td>@(lesson.Swimmer?.SwimmerName ?? "—")</td>
+                <td class="text-center">
+                    <a class="btn btn-sm btn-outline-secondary"
+                       asp-controller="Admin" asp-action="EditLesson" asp-route-id="@lesson.LessonId">Edit</a>
+                    <a class="btn btn-sm btn-outline-danger ms-1"
+                       asp-controller="Admin" asp-action="DeleteLesson" asp-route-id="@lesson.LessonId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p><a asp-controller="Admin" asp-action="Index">Back to Admin Home</a></p>
