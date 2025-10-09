@@ -1,14 +1,27 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmithSwimmingSchool.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmithSwimmingSchool.Controllers
 {
+
     public class CoachController : Controller
     {
+        ApplicationDbContext db;
+        public CoachController(ApplicationDbContext db)
+    {
+        this.db = db;
+    }
+
         [Authorize]
-        public IActionResult Index()
+       
+        // Associate Coaches with their sessions
+        public async Task<IActionResult> AllSession()
         {
-            return View();
+            var session = await db.Sessions.Include(c => c.Coach).ToListAsync();
+            return View(session);
         }
     }
+
 }

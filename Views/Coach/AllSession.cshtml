@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SmithSwimmingSchool.Models.Session>
+@{
+    ViewData["Title"] = "All Sessions";
+}
+<div class="d-flex justify-content-center">
+    <h2>All Sessions</h2>
+</div>
+
+@{
+
+    if (Model.Count() < 1)
+
+    {
+
+        <p>No sessions in database yet.</p>
+
+    }
+
+    else
+
+    {
+
+        <h3>All Sessions</h3>
+
+        <table border="1">
+
+            <tr>
+
+                <th>Session ID</th>
+
+                <th>Lesson ID</th>
+
+                <th>Coach ID</th>
+
+                <th>Seat Capacity</th>
+
+                <th>Daily Start Time</th>
+
+                <th>Start Date</th>
+
+                <th>End Date</th>
+
+                <th class="text-center" style="width:140px;">Actions</th>
+
+            </tr>
+
+            @foreach (var session in Model)
+
+            {
+
+                <tr>
+
+                    <td>@session.SessionId</td>
+
+                    <td>@session.LessonId</td>
+
+                    <td>@session.CoachId</td>
+
+                    <td>@session.SeatCapacity</td>
+
+                    <td>@session.DailyStartTime</td>
+
+                    <td>@session.StartDate</td>
+
+                    <td>@session.EndDate</td>
+
+                </tr>
+
+            }
+
+        </table>
+
+    }
+
+}
