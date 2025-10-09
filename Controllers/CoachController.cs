@@ -22,6 +22,13 @@ namespace SmithSwimmingSchool.Controllers
             var session = await db.Sessions.Include(c => c.Coach).ToListAsync();
             return View(session);
         }
-    }
 
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+    }       
 }
+
