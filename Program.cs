@@ -45,6 +45,17 @@ app.MapControllerRoute(
     pattern: "{controller=Account}/{action=Login}/{id?}");
 
 
+// Seed initial data
+using (var scope = app.Services.CreateScope())
+{
+    // Seed roles and users
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    // Get RoleManager
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    // Call the SeedUsersAsync method
+    await DataUtility.SeedUsersAsync(userManager, roleManager);
+}
+
 app.Run();
 
 

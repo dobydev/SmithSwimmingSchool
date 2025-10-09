@@ -10,7 +10,7 @@ public class AdminController : Controller
     private readonly ApplicationDbContext db;
     public AdminController(ApplicationDbContext context) => db = context;
 
-    [Authorize]
+   //  [Authorize(Roles ="Admin")]
     public IActionResult Index()
     {
         return View();
