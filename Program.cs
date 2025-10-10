@@ -1,8 +1,8 @@
-/* Gabriel Doby, Gabe Armstrong, Baden Glass, Destini Liphart
+/* Gabriel Doby, Gabe Armstrong, Destini Liphart
    Dylan Medvik, Pavel Karima, Prashum  K C
    Group 1: Team Project
    CISS 411: Software Architecture with ASP.NET
-   9/29/2025  */
+   10/9/2025  */
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

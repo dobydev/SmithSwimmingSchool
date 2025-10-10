@@ -16,5 +16,10 @@ namespace SmithSwimmingSchool.Models
         // Navigation properties
         public ICollection<Session> Sessions { get; set; } = new List<Session>();
 
+        public string? ApplicationUserId { get; set; }
+
+        public string? Bio { get; set; }
+
+        public string? Certifications { get; set; }
     }
 }

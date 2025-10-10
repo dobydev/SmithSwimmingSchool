@@ -4,12 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using SmithSwimmingSchool.Models;
 using SmithSwimmingSchool.ViewModels;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication;
 
 namespace SmithSwimmingSchool.Controllers
 {
-    // Uncomment this when you want to restrict access to Admins only
-    // Ensure you assign your account as an admin
-    // [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         // Dependency Injection
@@ -141,12 +139,6 @@ namespace SmithSwimmingSchool.Controllers
             return View(vm);
         }
 
-
-
-        /* Uncomment this when you want to restrict access to Admins only
-          Ensure you assign your account as an admin BEFORE implementing this
-         [Authorize(Roles = "Admin")] */
-        // Action method for displaying all users and their roles
         public IActionResult AllUser()
 
         {
@@ -213,6 +205,23 @@ namespace SmithSwimmingSchool.Controllers
             // Default redirect if no roles match
             return RedirectToAction("Index", "Home");
 
+        }
+
+        // Action Method to handle user logout
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            // Clear app session data (if any)
+            HttpContext.Session.Clear();
+
+            // Sign out identity cookies
+            await signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            // Redirect to a safe page
+            return RedirectToAction("Index", "Home");
         }
 
     }

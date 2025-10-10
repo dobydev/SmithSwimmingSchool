@@ -1,0 +1,36 @@
+﻿@using SmithSwimmingSchool.ViewModels
+@model SmithSwimmingSchool.ViewModels.CoachProfileViewModel
+@{
+    var coachName = string.IsNullOrWhiteSpace(Model?.CoachName) ? "Coach" : Model.CoachName.Trim();
+    ViewData["Title"] = "Coach Profile | 3S";
+}
+
+<div class="card mx-auto" style="max-width: 720px;">
+    <div class="card-header">
+        <h2 class="mb-0">Coach Profile</h2>
+    </div>
+    <div class="card-body">
+        <h3 class="card-title">@coachName</h3>
+
+        <dl class="row mb-0">
+            @if (!string.IsNullOrWhiteSpace(Model.PhoneNumber))
+            {
+                <dt class="col-sm-3">Phone</dt>
+                <dd class="col-sm-9">@Model.PhoneNumber</dd>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.Certifications))
+            {
+                <dt class="col-sm-3">Certifications</dt>
+                <dd class="col-sm-9">@Model.Certifications</dd>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.Bio))
+            {
+                <dt class="col-sm-3">Bio</dt>
+                <dd class="col-sm-9">@Model.Bio</dd>
+            }
+        </dl>
+    </div>
+    <div class="card-footer text-end">
+        <a class="btn btn-outline-secondary" asp-controller="Coach" asp-action="Index">Back</a>
+    </div>
+</div>

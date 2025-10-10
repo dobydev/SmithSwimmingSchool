@@ -1,0 +1,41 @@
+﻿@model SmithSwimmingSchool.ViewModels.CoachProfileViewModel
+@{
+    ViewData["Title"] = "Coach Profile | 3S";
+}
+
+<h2>My Coach Profile</h2>
+
+@if (TempData["ProfileSaved"] is string msg)
+{
+    <div class="alert alert-success">@msg</div>
+}
+
+<form asp-action="Profile" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label asp-for="CoachName" class="form-label"></label>
+        <input asp-for="CoachName" class="form-control" />
+        <span asp-validation-for="CoachName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Bio" class="form-label"></label>
+        <textarea asp-for="Bio" rows="5" class="form-control"></textarea>
+        <span asp-validation-for="Bio" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Certifications" class="form-label"></label>
+        <input asp-for="Certifications" class="form-control" placeholder="e.g., WSI, CPR, Lifeguard" />
+        <span asp-validation-for="Certifications" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Profile</button>
+</form>

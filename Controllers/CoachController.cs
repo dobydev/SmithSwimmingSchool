@@ -1,21 +1,26 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SmithSwimmingSchool.Models;
 using Microsoft.EntityFrameworkCore;
+using SmithSwimmingSchool.Models;
+using SmithSwimmingSchool.ViewModels;
 
 namespace SmithSwimmingSchool.Controllers
 {
-
+    [Authorize(Roles = "Coach, Admin")]
     public class CoachController : Controller
     {
-        ApplicationDbContext db;
-        public CoachController(ApplicationDbContext db)
-    {
-        this.db = db;
-    }
+        private readonly ApplicationDbContext db;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        [Authorize]
-       
+        public CoachController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        {
+            this.db = db;
+            this.userManager = userManager;
+        }
+
+        public IActionResult Index() => View();
+
         // Associate Coaches with their sessions
         public async Task<IActionResult> AllSession()
         {
@@ -23,12 +28,101 @@ namespace SmithSwimmingSchool.Controllers
             return View(session);
         }
 
-
-        public IActionResult Index()
+        // Coach profile (GET)
+        [HttpGet]
+        public async Task<IActionResult> Profile()
         {
-            return View();
+            var user = await userManager.GetUserAsync(User);
+            if (user is null) return Challenge();
+
+            var coach = await db.Coaches
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.ApplicationUserId == user.Id);
+
+            if (coach is null)
+            {
+                return View(new CoachProfileViewModel
+                {
+                    CoachName = user.Email ?? "Coach"
+                });
+            }
+
+            return View(new CoachProfileViewModel
+            {
+                CoachName = coach.CoachName,
+                PhoneNumber = coach.PhoneNumber,
+                Bio = coach.Bio,
+                Certifications = coach.Certifications
+            });
         }
 
-    }       
+        // Coach profile (POST)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profile(CoachProfileViewModel vm)
+        {
+            var user = await userManager.GetUserAsync(User);
+            if (user is null) return Challenge();
+
+            if (!ModelState.IsValid) return View(vm);
+
+            var coach = await db.Coaches.FirstOrDefaultAsync(c => c.ApplicationUserId == user.Id);
+
+            if (coach is null)
+            {
+                coach = new Coach
+                {
+                    ApplicationUserId = user.Id,
+                    CoachName = vm.CoachName,
+                    PhoneNumber = vm.PhoneNumber,
+                    Bio = vm.Bio,
+                    Certifications = vm.Certifications
+                };
+                await db.Coaches.AddAsync(coach);
+            }
+            else
+            {
+                coach.CoachName = vm.CoachName;
+                coach.PhoneNumber = vm.PhoneNumber;
+                coach.Bio = vm.Bio;
+                coach.Certifications = vm.Certifications;
+
+                db.Coaches.Update(coach);
+            }
+
+            await db.SaveChangesAsync();
+            TempData["ProfileSaved"] = "Your profile was saved.";
+            return RedirectToAction(nameof(Profile));
+        }
+
+        // Public views
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await db.Coaches
+                .Where(c => c.CoachId == id)
+                .Select(c => new CoachProfileViewModel
+                {
+                    CoachName = c.CoachName,
+                    PhoneNumber = c.PhoneNumber,
+                    Certifications = c.Certifications,
+                    Bio = c.Bio
+                })
+                .FirstOrDefaultAsync();
+
+            if (model is null) return NotFound();
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> All()
+        {
+            var coaches = await db.Coaches.AsNoTracking()
+                .OrderBy(c => c.CoachName)
+                .ToListAsync();
+            return View(coaches);
+        }
+    }
 }
 

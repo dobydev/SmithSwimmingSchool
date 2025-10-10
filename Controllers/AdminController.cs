@@ -3,14 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SmithSwimmingSchool.Models;
+namespace SmithSwimmingSchool.Controllers;
 
-
+[Authorize(Roles = "Admin")]
 public class AdminController : Controller
 {
     private readonly ApplicationDbContext db;
     public AdminController(ApplicationDbContext context) => db = context;
 
-   //  [Authorize(Roles ="Admin")]
+   
     public IActionResult Index()
     {
         return View();
