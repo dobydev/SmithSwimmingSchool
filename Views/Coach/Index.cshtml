@@ -1,2 +1,22 @@
-﻿@{
+﻿@model IEnumerable<SmithSwimmingSchool.Models.Coach>
+@{
+    ViewData["Title"] = "Coaches | 3S";
+}
+<h2>Coaches</h2>
+@if (!Model?.Any() ?? true)
+{
+    <div class="alert alert-info">No coaches found.</div>
+}
+else
+{
+    <div class="list-group col-4">
+        @foreach (var c in Model)
+        {
+            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+               asp-controller="Coach" asp-action="Details" asp-route-id="@c.CoachId">
+                <span>@(string.IsNullOrWhiteSpace(c.CoachName) ? "Coach" : c.CoachName)</span>
+                <span class="text-muted small">View details ›</span>
+            </a>
+        }
+    </div>
 }

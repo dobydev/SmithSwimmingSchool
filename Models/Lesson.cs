@@ -22,6 +22,7 @@ namespace SmithSwimmingSchool.Models
 
         // Navigation properties
         public virtual Coach? Coach { get; set; }
+        
         public virtual Swimmer? Swimmer { get; set; }
 
         // Navigation properties for related entities

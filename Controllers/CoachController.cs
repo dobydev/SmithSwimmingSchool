@@ -7,7 +7,6 @@ using SmithSwimmingSchool.ViewModels;
 
 namespace SmithSwimmingSchool.Controllers
 {
-    [Authorize(Roles = "Coach, Admin")]
     public class CoachController : Controller
     {
         private readonly ApplicationDbContext db;
@@ -18,8 +17,6 @@ namespace SmithSwimmingSchool.Controllers
             this.db = db;
             this.userManager = userManager;
         }
-
-        public IActionResult Index() => View();
 
         // Associate Coaches with their sessions
         public async Task<IActionResult> AllSession()
@@ -56,7 +53,9 @@ namespace SmithSwimmingSchool.Controllers
             });
         }
 
+
         // Coach profile (POST)
+        [Authorize(Roles = "Coach, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Profile(CoachProfileViewModel vm)
@@ -116,7 +115,7 @@ namespace SmithSwimmingSchool.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> Index()
         {
             var coaches = await db.Coaches.AsNoTracking()
                 .OrderBy(c => c.CoachName)

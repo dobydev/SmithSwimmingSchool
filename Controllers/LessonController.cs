@@ -9,6 +9,7 @@ namespace SmithSwimmingSchool.Controllers
         private readonly ApplicationDbContext _ctx;
         public LessonController(ApplicationDbContext ctx) => _ctx = ctx;
 
+
         // Static list to hold all lessons
         static List<Lesson> AllLessons = new List<Lesson>();
         public IActionResult Index()

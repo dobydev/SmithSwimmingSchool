@@ -30,12 +30,12 @@ public class AdminController : Controller
         {
             // Repopulate dropdowns if validation fails
             ViewBag.CoachList = new SelectList(await db.Coaches
-                .Select(c => new { c.CoachId, c.CoachName })
-                .ToListAsync(), "CoachId", "CoachName");
+                .Select(c => new { c.CoachName })
+                .ToListAsync(), "CoachName");
 
             ViewBag.SwimmerList = new SelectList(await db.Swimmers
                 .Select(s => new { s.SwimmerId, s.SwimmerName })
-                .ToListAsync(), "SwimmerId", "SwimmerName");
+                .ToListAsync(), "SwimmerName");
 
             return View(model);
         }
