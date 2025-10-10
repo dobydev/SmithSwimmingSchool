@@ -18,7 +18,7 @@ public static class DataUtility
         if (await userManager.FindByNameAsync("admin") == null)
         {
             // Create Admin user
-            var admin = new ApplicationUser { UserName = "John Doe", Email = "admin@3S.com" };
+            var admin = new ApplicationUser { UserName = "admin@3S.com", Email = "admin@3S.com" };
             await userManager.CreateAsync(admin, "Admin123!");
             await userManager.AddToRoleAsync(admin, "Admin");
         }
@@ -27,7 +27,7 @@ public static class DataUtility
         if (await userManager.FindByNameAsync("swimmer") == null)
         {
             // Create Swimmer user
-            var swimmer = new ApplicationUser { UserName = "swimmer", Email = "swimmer@3S.com" };
+            var swimmer = new ApplicationUser { UserName = "swimmer@3S.com", Email = "swimmer@3S.com" };
             await userManager.CreateAsync(swimmer, "Swimmer123!");
             await userManager.AddToRoleAsync(swimmer, "Swimmer");
         }
@@ -36,7 +36,7 @@ public static class DataUtility
         if (await userManager.FindByNameAsync("coach") == null)
         {
             // Create Coach user
-            var coach = new ApplicationUser { UserName = "coach", Email = "coach@3s.com" };
+            var coach = new ApplicationUser { UserName = "coach@3s.com", Email = "coach@3s.com" };
             await userManager.CreateAsync(coach, "Coach123!");
             await userManager.AddToRoleAsync(coach, "Coach");
         }
